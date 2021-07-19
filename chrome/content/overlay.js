@@ -29,11 +29,15 @@ var babbleon_overlay = {
    let findLang = lang.toLowerCase();
    if (findLang.indexOf('-') != -1)
     findLang = findLang.slice(0, findLang.indexOf('-'));
+   if (findLang.indexOf('_') != -1)
+    findLang = findLang.slice(0, findLang.indexOf('_'));
    for (myLang of navigator.languages)
    {
     let matchLang = myLang.toLowerCase();
     if (matchLang.indexOf('-') != -1)
      matchLang = matchLang.slice(0, matchLang.indexOf('-'));
+    if (matchLang.indexOf('_') != -1)
+     matchLang = matchLang.slice(0, matchLang.indexOf('_'));
     if (matchLang == findLang)
     {
      found = true;
