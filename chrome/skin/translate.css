@@ -1,0 +1,22 @@
+#babbleon-button
+{
+ width: 16px;
+ height: 16px;
+ padding: 0;
+ margin-left: 3px;
+ margin-right: 3px;
+ list-style-image: url("chrome://babbleon/skin/translate.png");
+ -moz-image-region: rect(0px, 32px, 16px, 16px);
+}
+#babbleon-button.untranslated, #babbleon-button.translated:hover:active
+{
+ -moz-image-region: rect(0px, 16px, 16px, 0px);
+}
+#babbleon-button.translated, #babbleon-button.untranslated:hover:active
+{
+ -moz-image-region: rect(0px, 48px, 16px, 32px);
+}
+#babbleon-button:hover
+{
+ -moz-image-region: rect(0px, 32px, 16px, 16px);
+}
