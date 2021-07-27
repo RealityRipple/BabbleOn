@@ -80,6 +80,8 @@ var babbleon_overlay = {
      continue;
     if (!aBrowser.hasOwnProperty('registeredOpenURI'))
      continue;
+    if (!gBrowser.tabs[i].linkedBrowser.hasOwnProperty('registeredOpenURI'))
+     continue;
     if (aBrowser.registeredOpenURI.spec === gBrowser.tabs[i].linkedBrowser.registeredOpenURI.spec)
     {
      matchedTab = true;
