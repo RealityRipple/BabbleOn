@@ -128,6 +128,8 @@ var babbleon_overlay = {
      break;
     }
    }
+   if (findLang === '')
+    found = true;
    if (found)
    {
     babbleon_overlay.hideButton(window);
