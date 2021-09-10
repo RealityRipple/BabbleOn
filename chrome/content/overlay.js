@@ -229,7 +229,7 @@ var babbleon_overlay = {
    catch (e) {uri = null;}
    if (uri == null)
     return;
-   var newURL = 'https://' + uri.asciiHost.replaceAll('.', '-') + '.translate.goog' + uri.filePath;
+   var newURL = 'https://' + uri.asciiHost.replaceAll('-', '--').replaceAll('.', '-') + '.translate.goog' + uri.filePath;
    newURL += '?_x_tr_sl=' + lang + '&_x_tr_tl=' + navigator.language;
    if (uri.query != '')
     newURL += '&' + uri.query;
