@@ -220,7 +220,7 @@ var babbleon_overlay = {
    }
    catch (e) {lang = null;}
    if (lang === null)
-    return;
+    lang = 'auto';
    let uri = null;
    try
    {
