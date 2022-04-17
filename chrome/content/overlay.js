@@ -9,7 +9,7 @@ var babbleon_overlay = {
  {
   onLocationChange: function(aProgress, aRequest, aLocation, aFlags)
   {
-   var lang = null;
+   let lang = null;
    try
    {
     lang = aProgress.DOMWindow.document.documentElement.attributes.lang.value;
@@ -36,7 +36,7 @@ var babbleon_overlay = {
      return;
     }
    }
-   var found = false;
+   let found = false;
    let findLang = lang.toLowerCase();
    if (findLang.indexOf('-') != -1)
     findLang = findLang.slice(0, findLang.indexOf('-'));
@@ -90,7 +90,7 @@ var babbleon_overlay = {
    }
    if (!matchedTab)
     return;
-   var uri = null;
+   let uri = null;
    try
    {
     uri = aBrowser.contentWindow.document.documentURIObject;
@@ -101,7 +101,7 @@ var babbleon_overlay = {
     }
    }
    catch (e) {}
-   var lang = null;
+   let lang = null;
    try
    {
     lang = aBrowser.contentWindow.document.documentElement.attributes.lang.value;
@@ -109,7 +109,7 @@ var babbleon_overlay = {
    catch (e) {lang = null;}
    if (lang == null)
     return;
-   var found = false;
+   let found = false;
    let findLang = lang.toLowerCase();
    if (findLang.indexOf('-') != -1)
     findLang = findLang.slice(0, findLang.indexOf('-'));
@@ -213,7 +213,7 @@ var babbleon_overlay = {
   }
   else
   {
-   var lang = null;
+   let lang = null;
    try
    {
     lang = selWnd.contentDocument.documentElement.attributes.lang.value;
@@ -229,7 +229,7 @@ var babbleon_overlay = {
    catch (e) {uri = null;}
    if (uri == null)
     return;
-   var newURL = 'https://' + uri.asciiHost.replaceAll('-', '--').replaceAll('.', '-') + '.translate.goog' + uri.filePath;
+   let newURL = 'https://' + uri.asciiHost.replaceAll('-', '--').replaceAll('.', '-') + '.translate.goog' + uri.filePath;
    newURL += '?_x_tr_sl=' + lang + '&_x_tr_tl=' + navigator.language;
    if (uri.query != '')
     newURL += '&' + uri.query;
