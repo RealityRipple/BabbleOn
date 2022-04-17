@@ -1,6 +1,8 @@
 var babbleon_overlay = {
  LoadListener: function()
  {
+  document.getElementById('babbleOnTranslate').setAttribute('label', 'Translate to ' + navigator.language);
+  document.getElementById('babbleOnTranslate').addEventListener('click', babbleon_overlay.clickedButton, false);
   babbleon_overlay.makeButton(window);
   gBrowser.addTabsProgressListener(babbleon_overlay.ProgressListener, Components.interfaces.nsIWebProgress.NOTIFY_PROGRESS);
   window.getBrowser().addProgressListener(babbleon_overlay.LocationListener);
@@ -25,6 +27,7 @@ var babbleon_overlay = {
     if (aLocation.asciiHost.slice(-15) === '.translate.goog')
     {
      babbleon_overlay.showButton(window, true);
+     document.getElementById('babbleOnTranslate').setAttribute('style', 'display: none;');
      return;
     }
    }
@@ -33,9 +36,11 @@ var babbleon_overlay = {
     if (aProgress.DOMWindow.location.hostname.slice(-15) === '.translate.goog')
     {
      babbleon_overlay.showButton(window, true);
+     document.getElementById('babbleOnTranslate').setAttribute('style', 'display: none;');
      return;
     }
    }
+   document.getElementById('babbleOnTranslate').removeAttribute('style');
    let found = false;
    let findLang = lang.toLowerCase();
    if (findLang.indexOf('-') != -1)
@@ -97,10 +102,12 @@ var babbleon_overlay = {
     if (uri.asciiHost.slice(-15) == '.translate.goog')
     {
      babbleon_overlay.showButton(window, true);
+     document.getElementById('babbleOnTranslate').setAttribute('style', 'display: none;');
      return;
     }
    }
    catch (e) {}
+   document.getElementById('babbleOnTranslate').removeAttribute('style');
    let lang = null;
    try
    {
@@ -151,7 +158,7 @@ var babbleon_overlay = {
   newIcon.setAttribute('class', 'urlbar-icon');
   newIcon.setAttribute('style', 'overflow: hidden; display: none;');
   newIcon.setAttribute('tooltiptext', '');
-  newIcon.addEventListener('click', babbleon_overlay.toggleTranslation, false);
+  newIcon.addEventListener('click', babbleon_overlay.clickedButton, false);
   let starButton = urlBarIconsBox.querySelector('#star-button');
   urlBarIconsBox.insertBefore(newIcon,starButton);
  },
@@ -191,9 +198,13 @@ var babbleon_overlay = {
    translateButton.classList.remove('untranslated');
   translateButton.setAttribute('tooltiptext', '');
  },
- toggleTranslation: function(evt)
+ clickedButton: function(evt)
  {
-  if (evt.button === 2)
+  babbleon_overlay.toggleTranslation(evt.button);
+ },
+ toggleTranslation: function(btn)
+ {
+  if (btn === 2)
    return;
   let toURL = null;
   let selWnd = window.getBrowser().selectedBrowser;
@@ -237,7 +248,7 @@ var babbleon_overlay = {
     newURL += '#' + uri.ref;
    toURL = newURL;
   }
-  if (evt.button === 1)
+  if (btn === 1)
   {
    let mdtr = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
    let rwnd = mdtr.getMostRecentWindow('navigator:browser');

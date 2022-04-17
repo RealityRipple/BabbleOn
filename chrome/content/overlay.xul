@@ -2,4 +2,7 @@
 <?xml-stylesheet href="chrome://babbleon/skin/translate.css" type="text/css"?>
 <overlay id="BabbleOnOverlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
  <script src="chrome://babbleon/content/overlay.js" />
+ <popup id="contentAreaContextMenu">
+  <menuitem id="babbleOnTranslate" class="menuitem-iconic" image="chrome://babbleon/skin/menu.png" label="Translate to..." insertafter="context-viewbgimage" />
+ </popup>
 </overlay>
