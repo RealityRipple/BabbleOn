@@ -6,6 +6,7 @@ var babbleon_overlay = {
   babbleon_overlay.makeButton(window);
   gBrowser.addTabsProgressListener(babbleon_overlay.ProgressListener, Components.interfaces.nsIWebProgress.NOTIFY_PROGRESS);
   window.getBrowser().addProgressListener(babbleon_overlay.LocationListener);
+  document.getElementById('contentAreaContextMenu').addEventListener('popupshowing', babbleon_overlay.popupMenu, false);
  },
  LocationListener:
  {
@@ -22,12 +23,12 @@ var babbleon_overlay = {
     babbleon_overlay.hideButton(window);
     return;
    }
+   document.getElementById('babbleOnTranslate').setAttribute('style', 'display: none;');
    if (aLocation !== null)
    {
     if (aLocation.asciiHost.slice(-15) === '.translate.goog')
     {
      babbleon_overlay.showButton(window, true);
-     document.getElementById('babbleOnTranslate').setAttribute('style', 'display: none;');
      return;
     }
    }
@@ -36,11 +37,9 @@ var babbleon_overlay = {
     if (aProgress.DOMWindow.location.hostname.slice(-15) === '.translate.goog')
     {
      babbleon_overlay.showButton(window, true);
-     document.getElementById('babbleOnTranslate').setAttribute('style', 'display: none;');
      return;
     }
    }
-   document.getElementById('babbleOnTranslate').removeAttribute('style');
    let found = false;
    let findLang = lang.toLowerCase();
    if (findLang.indexOf('-') != -1)
@@ -95,6 +94,7 @@ var babbleon_overlay = {
    }
    if (!matchedTab)
     return;
+   document.getElementById('babbleOnTranslate').setAttribute('style', 'display: none;');
    let uri = null;
    try
    {
@@ -102,12 +102,10 @@ var babbleon_overlay = {
     if (uri.asciiHost.slice(-15) == '.translate.goog')
     {
      babbleon_overlay.showButton(window, true);
-     document.getElementById('babbleOnTranslate').setAttribute('style', 'display: none;');
      return;
     }
    }
    catch (e) {}
-   document.getElementById('babbleOnTranslate').removeAttribute('style');
    let lang = null;
    try
    {
@@ -146,6 +144,20 @@ var babbleon_overlay = {
   },
   onSecurityChange: function() {},
   onLinkIconAvailable: function() {}
+ },
+ popupMenu: function()
+ {
+  if (window.content.location.hostname.slice(-15) === '.translate.goog')
+  {
+   document.getElementById('babbleOnTranslate').setAttribute('style', 'display: none;');
+   return;
+  }
+  if (document.getElementById('context-viewbgimage').hidden === true)
+  {
+   document.getElementById('babbleOnTranslate').setAttribute('style', 'display: none;');
+   return;
+  }
+  document.getElementById('babbleOnTranslate').removeAttribute('style');
  },
  makeButton: function(wnd)
  {
